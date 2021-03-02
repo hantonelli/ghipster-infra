@@ -6,7 +6,7 @@ rm ~/.kube/config
 sudo snap install microk8s --classic --channel=1.19
 microk8s enable ingress jaeger metrics-server prometheus registry storage dashboard dns helm helm3 istio
 
-cd $HOME && mkdir .kube && cd .kube && microk8s config > config
+cd $HOME && cd .kube && microk8s config > config
 
 k get all --all-namespaces
 
