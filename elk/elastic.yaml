@@ -1,9 +1,13 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: quickstart
+  name: elasticsearch
 spec:
-  version: 7.10.2
+  version: 7.11.2
+  http:
+    tls: 
+      selfSignedCertificate:
+        disabled: true
   nodeSets:
   - name: default
     count: 1
@@ -12,26 +16,65 @@ spec:
       node.data: true
       node.ingest: true
       node.store.allow_mmap: false
+    podTemplate:
+      metadata:
+        annotations:
+          traffic.sidecar.istio.io/includeInboundPorts: "*"
+          traffic.sidecar.istio.io/excludeOutboundPorts: "9300" 
+          traffic.sidecar.istio.io/excludeInboundPorts: "9300"
+      spec:
+        containers:
+        - name: elasticsearch
+          env:
+          - name: ES_JAVA_OPTS
+            value: -Xms1g -Xmx1g
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 4
+            limits:
+              memory: 1Gi
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: elasticsearch
+spec:
+  host: "elasticsearch-es-http.default.svc.cluster.local"
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: quickstart
+  name: kibana
 spec:
-  version: 7.10.2
+  version: 7.11.2
   count: 1
+  http:
+    tls: 
+      selfSignedCertificate:
+        disabled: true
   elasticsearchRef:
-    name: quickstart
+    name: elasticsearch
 ---
 apiVersion: apm.k8s.elastic.co/v1
 kind: ApmServer
 metadata:
-  name: apm-server-quickstart
-  namespace: default
+  name: apm-server
 spec:
-  version: 7.10.2
+  version: 7.11.2
   count: 1
+  http:
+    tls: 
+      selfSignedCertificate:
+        disabled: true
+  podTemplate:
+    metadata:
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true" 
   elasticsearchRef:
-    name: quickstart
+    name: elasticsearch
   kibanaRef:
-    name: quickstart
+    name: kibana

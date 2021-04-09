@@ -1,5 +1,6 @@
 # Kind Setup
 https://kind.sigs.k8s.io/docs/user/quick-start/
+https://istio.io/latest/docs/setup/platform-setup/kind/#setup-dashboard-ui-for-kind
 
 
 ```
@@ -21,5 +22,24 @@ echo "http://$GATEWAY_URL/productpage"
 
 
 
+https://github.com/helm/helm/releases
+chmod +x ./helm
+sudo mv ./helm /usr/local/bin/helm
+
+
 kind create cluster --name istio-operator
 kubectl cluster-info --context kind-istio-operator
+
+
+https://kind.sigs.k8s.io/docs/user/local-registry/
+docker tag graphql localhost:5000/graphql:1.0
+docker push localhost:5000/graphql:1.0
+
+
+istioctl operator init
+kubectl create ns istio-system
+
+
+Install LB?
+
+https://operatorhub.io/operator/grafana-operator

@@ -69,7 +69,7 @@ spec:
     spec:
       containers:
       - name: graphql
-        image: localhost:32000/graphql:registry
-        imagePullPolicy: IfNotPresent #Always
+        image: localhost:5000/graphql:1.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080

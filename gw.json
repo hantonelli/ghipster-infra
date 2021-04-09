@@ -1,0 +1,83 @@
+{
+    "_index": "filebeat-7.9.2-2021.03.02-000001",
+    "_type": "_doc",
+    "_id": "nnm9LHgBUswMCzw5HE9w",
+    "_version": 1,
+    "_score": null,
+    "_source": {
+      "@timestamp": "2021-03-13T17:57:01.209Z",
+      "input": {
+        "type": "container"
+      },
+      "kubernetes": {
+        "container": {
+          "name": "graphql",
+          "image": "localhost:5000/graphql:1.0"
+        },
+        "node": {
+          "name": "kind-control-plane"
+        },
+        "pod": {
+          "name": "graphql-85498f7cf7-df476",
+          "uid": "57162e11-34c4-44da-957c-b77eff514910"
+        },
+        "namespace": "default",
+        "replicaset": {
+          "name": "graphql-85498f7cf7"
+        },
+        "labels": {
+          "pod-template-hash": "85498f7cf7",
+          "version": "v1",
+          "app": "graphql"
+        }
+      },
+      "container": {
+        "id": "6ec9a04febca4d687816e10694f3c78d36f35e68818c1c64d4c68c0e5601b499",
+        "image": {
+          "name": "localhost:5000/graphql:1.0"
+        },
+        "runtime": "containerd"
+      },
+      "host": {
+        "name": "kind-control-plane"
+      },
+      "agent": {
+        "id": "3ecb725d-0b23-4141-9a20-5fd617e7aadc",
+        "name": "kind-control-plane",
+        "type": "filebeat",
+        "version": "7.9.2",
+        "hostname": "kind-control-plane",
+        "ephemeral_id": "32838a69-fb71-46fa-aee3-de7ee7849c5c"
+      },
+      "message": "{\"level\":\"info\",\"ts\":1615658221.2089589,\"caller\":\"resolver/products.resolvers.go:16\",\"msg\":\"Calling CreateProduct\"}",
+      "log": {
+        "file": {
+          "path": "/var/log/containers/graphql-85498f7cf7-df476_default_graphql-6ec9a04febca4d687816e10694f3c78d36f35e68818c1c64d4c68c0e5601b499.log"
+        },
+        "offset": 152
+      },
+      "stream": "stderr",
+      "ecs": {
+        "version": "1.5.0"
+      }
+    },
+    "fields": {
+      "@timestamp": [
+        "2021-03-13T17:57:01.209Z"
+      ],
+      "suricata.eve.timestamp": [
+        "2021-03-13T17:57:01.209Z"
+      ]
+    },
+    "highlight": {
+      "kubernetes.container.name": [
+        "@kibana-highlighted-field@graphql@/kibana-highlighted-field@"
+      ],
+      "kubernetes.container.image": [
+        "@kibana-highlighted-field@localhost:5000/graphql:1.0@/kibana-highlighted-field@"
+      ]
+    },
+    "sort": [
+      1615658221209
+    ]
+  }
